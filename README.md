@@ -1,4 +1,4 @@
-#Aprendendo gitHub com a Alura
+<h1>Aprendendo gitHub com a Alura</h1>
 
 > Status do projeto: Em desenvolvimento
 
