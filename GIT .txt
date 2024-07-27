@@ -1,0 +1,197 @@
+GIT 
+
+	é usado para realizar controle de versões entre projetos VCS (Version Control System)
+
+GIT BASH
+	é a ferramenta mais comum para utilizar e é bem parecida com o linux, e ativa os comandos do mesmo.
+
+pwd = comando para ver em qual diretório está
+cd nome-da-pasta = navega para dentro da pasta (caso sua pasta tenha espaços, tem que colocar em '') 
+cd .. = volta para o diretorio superior
+ls = listar o conteudo do duretório
+mkdir nome-da-pasta = cria uma pasta nova
+clear = limpa a tela escrita
+
+
+CONFIGURAR SUAS CREDENCIAIS PARA O GIT
+	git config --local user.name "Seu nome"
+	git config --local user.email "seu@email"
+
+--local = altera as configurações do projeto
+--global = altera as configurações geral do git
+
+
+CHAVES DE ACESSO SSH
+	quando a chave não está conectado no seu pc, ele pergunta, autorize e configure no seu github
+	no github, settings, ssh and gpg keys, digite o título, e cole a chave gerada no computador
+	
+	digite o comando:
+	ssh-keygen -t ed25519 -C "jackson.dgmedeiros@gmail.com"
+	a chave de acesso ficou em .ssh dentro do seu usuário no pc
+
+
+COMANDOS
+
+
+git init = inicia um repositório para controlar as versões
+git status = mostra como está o repositório
+git branch -m master main = muda o nome do repositório de master para main
+git add . = monitora todos os seus arquivos
+git add nome = monitora o nome do seu arquivo
+git commit -m "mensagem" = para salvar como checkpoint do seu projeto
+
+REGRAS PARA A MENSAGEM DO COMMIT
+	primeira linha com no máximo 72 caracteres
+	verbo do infinitivo "adicionar", "atualizar"
+	evitar detalhes técnicos
+Um commit deve ser realizado sempre que você finalizar uma tarefa específica ou resolver algum bug e NUNCA realizar um commit de um código que você sabe que contém bugs
+
+REPOSITÓRIO REMOTO
+git remote rename nomeAntigo nomeNovo = altera o nome do repositório remoto para o nome definido
+git remote add origin repositório = conecta no repositório remoto
+git remote -v = lista os repositórios remotos vinculados ao projeto
+git remote remove origin = remove o repositório remoto
+git remote set-url origin https://github.com/seu-usuario/seu-repositorio.git = altera o local do seu repositório
+
+
+
+existem várias formas de exibir log, segue alguns exemplos e um linj para auxiliar https://devhints.io/git-log
+git log = mostra as informações que foram realizadas após o commit
+git log --oneline = só os comits em uma unica linha por commit
+git log -p = mostra em detalhes o que foi alterado
+git log --graph = mostra as branches modificadas
+
+
+PEGAR, LEVAR E BUSCAR PROJETOS
+
+git clone diretoio-ou-link = faz um clone do projeto para a sua máquina
+git push -u origin main = enviar dados para o origin da branch main
+git pull origin main = trás os dados que foram alterados e enviados para o projeto remoto
+
+
+
+
+
+REPOSITÓRIO REMOTO
+
+crie uma pasta para gerenciar os arquivos de compartilhamento, ex: c:servidor
+
+acesse a pasta criada e inicie um repositório:
+	git init --bare = informa que é apenas um repositório para armazenar informações e não os arquivos, usado para compartilhar arquivs, como servidor local. caso não tenha colocado --bare, altere usando: git config core.bare true
+
+informe que é um repositório remoto e defina um nome, nesse caso, ficou como local
+	git remote add local {caminho} = caminho do servidor
+
+
+
+GIT HUB
+	vá em criar repositório e crie o seu
+
+	depois para se conectar com o repositório remoto usando SSH ou HTTPS
+	usando HTTPS
+	git remote add origin https:// nome completo do gtihub
+	git branch -M main
+	git push -u origin main
+
+
+BRANCHES
+
+para facilitar o entendimento, use https://git-school.github.io/visualizing-git/
+
+	git branch = mostra qual está e quais tem 
+	git branch nome = cria o novo
+	git checkout nome = altera para a branch que colocou 
+	git checkout -b nome = cria uma nova e já altera para a branch
+
+UNINDO BRANCHES
+	git merge nome = une as branches que você está com a do nome, depois digita :x para confirmar 
+	git rebase nome = une as branches e deixa o histórico da outra branch 
+
+RESOLVENDO CONFLITOS
+	quando vc tentar dar um merge e tiver conflitos, olhe na IDE e remova-os, depois de um git add e git commit que por último ele vai deixar subir os arquivos
+
+REVERTENDO ALTERAÇÕES = CTRL + Z, É RECOMENDADO FAZER ESSES COMANDOS APENAS NO REPOSITÓRIO LOCAL
+	git checkout --nome-do-arquivo = para desfazer antes de usar o git add
+	git reset HEAD nome-do-arquivo = para desfazer depois de usar o git add
+	git reset --hard hash-anterior = exclui o commit até o hash que foi informado
+	git reset --soft = mantem as alterações nos arquivos
+	git revert com o hash de um commit = volta para um commit antes, porém mostra como um commit revert, ficando o histórico
+	gir revert -n hash = voltar vários, mas tem que realizar um novo commit para aplicar
+	git commit --amend -m "nova mensagem" = altera a mensagem do commit anterior
+
+GUARDANDO PARA DEPOIS
+	git stash = salva os arquivos temporáriamente se precisar usar
+	git stash list = mostra os arquivos temporários
+	git stash apply <numero-da-stash> = adiciona no projeto, mas não remove
+	git stash drop <numero-da-stash> = remove do stash
+	git stash pop =  aplica e tira a ultima alteração e já salva no projeto sem precisar commitar
+	
+
+VOLTANDO PARA DETERMINADO COMMIT
+
+	é possível voltar usando o git checkout hash-7numeros
+	porém ele fica solto até criar uma nova brach, depois que criar, será possível acessar quando quiser, caso contrário, fica solto.
+	logo, sempre que voltar, crie uma branch para não perder o código
+
+
+VENDO ALTERAÇÕES
+	git diff = vê a diferença dos arquivos antes do commit
+	git diff <hash>..<hash> = vê a diferença dos arquivos entre dois commits que estão em <hash> de um até o outro
+
+
+TAGS E RELEASES
+	TAG = para mostrar um ponto na aplicação que não pode ser modificado, como exemplo um lançamento de versão para o GIT
+	git tag -a nome -m "mensgame que desejar" = adiciona uma tag, dizendo que a partir daqui é um marco
+	nome de tag = você escolhe, mas é bom usar um padrão como v0.1
+	
+	git push local nome = pode enviar para o repositório remoto essa tag parecido como push
+	
+	RELEASE = é usado no git hub para baixar o código ou criar um deploy. 
+	para criar, dentro do github clique em tag, na página, clique em releases e clique em new release senão tiver nenhuma
+	escolha a tag assosiada para a nova release e se quiser, adicione uma mensagem com título e descrição 
+
+GIT IGNORE
+
+são para informar ao git que os arquivos não precisam ser monitorados, primeiro crie um arquivo chamado .gitignore
+	quando não quiser monitorar algum arquivo do seu projeto, bas adicionar o nome dele dentro do .gitignore
+	*.css ignora tudo que tem a extensão
+
+README.md
+	arquivo de informações para o seu projeto
+
+	pode ser inserido códigos HTMLs ou de MarkDows
+	o link é para ver como usar a linguagem markdown dentro do vscode: https://code.visualstudio.com/docs/languages/markdown
+	principais códigos: https://wordpress.com/support/markdown-quick-reference/
+
+	como fazer uma página: https://www.alura.com.br/artigos/escrever-bom-readme?_gl=1*4mwt7z*_ga*MTAyNTE4ODUyMC4xNzA3MDA1MTU4*_ga_1EPWSW3PCS*MTcxMzI4MzkwNy4xMDIuMS4xNzEzMjg3MDQwLjAuMC4w*_fplc*WnJtc0FxS3NTWHd3MWVUZWRGeEhPRzlETnBuUUdqY1o1d0xXRHp6TiUyRnJIamxSb0hHd1ZsaVBMUm1hWFhzRWNlMUprZlNjTzZtbG5pTnBpdSUyRjdlVnQzYTNqcUVxVHFsU0JBRXhmdUJOMmV3T0YlMkZ5WSUyRlg2QTA4R3pBbCUyRkh6ZyUzRCUzRA..
+
+como criar um readme para o seu perfil: 
+https://www.alura.com.br/artigos/como-criar-um-readme-para-seu-perfil-github?_gl=1*yzg4vf*_ga*MTAyNTE4ODUyMC4xNzA3MDA1MTU4*_ga_1EPWSW3PCS*MTcxMzI4MzkwNy4xMDIuMS4xNzEzMjg3MTMwLjAuMC4w*_fplc*WnJtc0FxS3NTWHd3MWVUZWRGeEhPRzlETnBuUUdqY1o1d0xXRHp6TiUyRnJIamxSb0hHd1ZsaVBMUm1hWFhzRWNlMUprZlNjTzZtbG5pTnBpdSUyRjdlVnQzYTNqcUVxVHFsU0JBRXhmdUJOMmV3T0YlMkZ5WSUyRlg2QTA4R3pBbCUyRkh6ZyUzRCUzRA..
+
+
+VERCEL
+	para publicar os seus arquivos que estão no github
+
+GIST
+	para compartilhar trecho de código
+	dentro do github, na hora de criar um novo projeto, na seta tem a opção de criar gist
+
+
+DOCUMENTAÇÃO
+
+https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-O-B%C3%A1sico-do-Git
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
