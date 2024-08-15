@@ -9,4 +9,4 @@ node app.js
 ```
 >> Para resolver conflitos do local para o remoto
 >>
->> git pull origin master --allow-unrelated-histories
+>> git pull origin main --allow-unrelated-histories
