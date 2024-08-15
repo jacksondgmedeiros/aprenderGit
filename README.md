@@ -7,3 +7,6 @@ Para rodar **esse projeto** na sua máquina, por favor digite:
 ```
 node app.js
 ```
+>> Para resolver conflitos do local para o remoto
+>>
+>> git pull origin master --allow-unrelated-histories
